@@ -2563,6 +2563,10 @@ input, select, textarea {
 					color: #953d75;
 				}
 
+				.wrapper.style5 .icon.major:before {
+					color: #333C44;
+				}
+
 /* Image */
 
 	.image {
@@ -3067,14 +3071,6 @@ input, select, textarea {
 				opacity: 1;
 			}
 
-		.spotlights > section:nth-child(2) {
-			background-color: rgba(0, 0, 0, 0.05);
-		}
-
-		.spotlights > section:nth-child(3) {
-			background-color: rgba(0, 0, 0, 0.1);
-		}
-
 		.spotlights > section.inactive > .image:before,
 		body.is-preload .spotlights > section > .image:before {
 			opacity: 1;
@@ -3269,6 +3265,10 @@ input, select, textarea {
 
 		.wrapper.style4-alt {
 			background-color: #953d75;
+		}
+
+		.wrapper.style5 {
+			background-color: #333C44;
 		}
 
 		.wrapper.fullscreen {
