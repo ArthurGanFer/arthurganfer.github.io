@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+<!--
+	Hyperspace by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>SnowmanLab</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header">
+				<a href="index.html" class="title">Arthur GanFer</a>
+				<nav>
+					<ul>
+						<li><a href="index.html">Home</a></li>
+						<li><a href="snowmanlab.html" class="active">Arcadefolio</a></li>
+					</ul>
+				</nav>
+			</header>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<section id="main" class="wrapper">
+						<div class="inner">
+							<h1 class="major">Arcadefolio</h1>
+                            <p>Interaja com os arcades para jogar os projetos desenvolvidos por mim a partir dos projetos em <a href="https://learn.unity.com/u/5d673930edbc2a3a3803dcb6/?tab=activity">Unity Learn<a/>.</p>
+                            <p>WASD - Para se mover</p>
+                            <p>'E' - Interagir</p>
+                            <iframe src="https://i.simmer.io/@ArthurGanfer/arcadefolio" style="width:100%;height:600px"></iframe>
+						</div>
+					</section>
+			</div>
+
+		<!-- Footer -->
+			<footer id="footer" class="wrapper alt">
+				<div class="inner">
+					<ul class="menu">
+						<li></li><li>Arthur Gandriann Ferreira</li>
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+            
+            
+            <script>
+            var container = document.querySelector("#unity-container");
+            var canvas = document.querySelector("#unity-canvas");
+            var loadingBar = document.querySelector("#unity-loading-bar");
+            var progressBarFull = document.querySelector("#unity-progress-bar-full");
+            var fullscreenButton = document.querySelector("#unity-fullscreen-button");
+            var warningBanner = document.querySelector("#unity-warning");
+
+            // Shows a temporary message banner/ribbon for a few seconds, or
+            // a permanent error message on top of the canvas if type=='error'.
+            // If type=='warning', a yellow highlight color is used.
+            // Modify or remove this function to customize the visually presented
+            // way that non-critical warnings and error messages are presented to the
+            // user.
+            function unityShowBanner(msg, type) {
+                function updateBannerVisibility() {
+                    warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
+                }
+                var div = document.createElement('div');
+                div.innerHTML = msg;
+                warningBanner.appendChild(div);
+                if (type == 'error') div.style = 'background: red; padding: 10px;';
+                else {
+                    if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
+                        setTimeout(function() {
+                        warningBanner.removeChild(div);
+                        updateBannerVisibility();
+                    }, 5000);
+                }
+                updateBannerVisibility();
+            }
+            
+                var buildUrl = "Unity/Arcadefolio/Build";
+                var loaderUrl = buildUrl + "/Builds.loader.js";
+                var config = {
+                    dataUrl: buildUrl + "/Builds.data.gz",
+                    frameworkUrl: buildUrl + "/Builds.framework.js.gz",
+                    codeUrl: buildUrl + "/Builds.wasm.gz",
+                    streamingAssetsUrl: "StreamingAssets",
+                    companyName: "ArthurGanfer",
+                    productName: "Arcadefolio",
+                    productVersion: "0.1",
+                    showBanner: unityShowBanner,
+                };
+
+                // By default Unity keeps WebGL canvas render target size matched with
+                // the DOM size of the canvas element (scaled by window.devicePixelRatio)
+                // Set this to false if you want to decouple this synchronization from
+                // happening inside the engine, and you would instead like to size up
+                // the canvas DOM size and WebGL render target sizes yourself.
+                // config.matchWebGLToCanvasSize = false;
+
+                if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+                    container.className = "unity-mobile";
+                    // Avoid draining fillrate performance on mobile devices,
+                    // and default/override low DPI mode on mobile browsers.
+                    config.devicePixelRatio = 1;
+                    unityShowBanner('WebGL builds are not supported on mobile devices.');
+                } else {
+                    canvas.style.width = "960px";
+                    canvas.style.height = "600px";
+                }
+                loadingBar.style.display = "block";
+
+                var script = document.createElement("script");
+                script.src = loaderUrl;
+                script.onload = () => {
+                    createUnityInstance(canvas, config, (progress) => {
+                    progressBarFull.style.width = 100 * progress + "%";
+                }).then((unityInstance) => {
+                    loadingBar.style.display = "none";
+                    fullscreenButton.onclick = () => {
+                        unityInstance.SetFullscreen(1);
+                    };
+                }).catch((message) => {
+                    alert(message);
+                });
+            };
+            document.body.appendChild(script);
+    </script>
+
+	</body>
+</html>
