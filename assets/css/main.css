@@ -3275,6 +3275,10 @@ input, select, textarea {
 			background-color: #212121;
 		}
 
+		.wrapper.style-ketchupboy {
+			background-color: #13563e;
+		}
+
 		.wrapper.fullscreen {
 			display: -moz-flex;
 			display: -webkit-flex;
